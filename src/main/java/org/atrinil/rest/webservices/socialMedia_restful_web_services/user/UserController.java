@@ -52,4 +52,9 @@ public class UserController {
             return ResponseEntity.created(location).build();
         }
     }
+
+    @DeleteMapping(value = "/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        service.deleteById(id);
+    }
 }

@@ -44,12 +44,17 @@ public class UserDaoService {
         } else return null;
     }
 
-    public void deleteUser(User user) {
+    public void deleteByUser(User user) {
         Predicate<? super User> predicate = u -> u.getId().equals(user.getId())
                 && u.getName().contentEquals(user.getName())
                 && u.getBirthDate().isEqual(user.getBirthDate());
 
-        users.remove(users.stream().filter(predicate).findFirst().get());
+        users.removeIf(predicate);
+    }
+
+    public void deleteById(int id) {
+        Predicate<? super User> predicate = u -> u.getId().equals(id);
+        users.removeIf(predicate);
     }
 
     private boolean checkUserExists(User user) {
