@@ -1,5 +1,6 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/users")
-    public void createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         service.save(user);
+        return ResponseEntity.created(null).build();
     }
 }
