@@ -13,11 +13,12 @@ public class UserDaoService {
 
     //JPA or Hibernate
     private static List<User> users = new ArrayList<>();
+    private static int usersCreated = 0;
 
     static {
-        users.add(new User(1, "AdiShakti", LocalDate.now().minusYears(50000)));
-        users.add(new User(2, "KashiKshetraPaal", LocalDate.now().minusYears(40000)));
-        users.add(new User(3, "Shiv", LocalDate.now().minusYears(10000)));
+        users.add(new User(++usersCreated, "AdiShakti", LocalDate.now().minusYears(50000)));
+        users.add(new User(++usersCreated, "KashiKshetraPaal", LocalDate.now().minusYears(40000)));
+        users.add(new User(++usersCreated, "Shiv", LocalDate.now().minusYears(10000)));
     }
 
     //get all users
@@ -34,10 +35,11 @@ public class UserDaoService {
         return users.stream().filter(predicate).findFirst().get();
     }
 
-    public void save(User user) {
+    public User save(User user) {
         if(!checkUserExists(user)) {
-            users.add(new User(users.size()+1, user.getName(), user.getBirthDate()));
+            users.add(new User(++usersCreated, user.getName(), user.getBirthDate()));
         }
+        return user;
     }
 
     public void deleteUser(User user) {

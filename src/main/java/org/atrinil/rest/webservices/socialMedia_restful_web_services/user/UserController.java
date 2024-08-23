@@ -2,7 +2,9 @@ package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,7 +33,12 @@ public class UserController {
 
     @PostMapping(value = "/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        service.save(user);
-        return ResponseEntity.created(null).build();
+        User savedUser = service.save(user);
+        //return uri of the new user so that client call the uri to check saved user details.
+        //created method of ResponseEntity accepts URI as parameter
+        // example - /users/4 => /users , user.getId()
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 }
