@@ -1,11 +1,14 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 
+import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserAlreadyCreatedException;
+import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class UserController {
@@ -27,8 +30,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{id}")
-    public User getUser(@PathVariable int id) {
-        return service.retrieveUser(id);
+    public User retrieveUser(@PathVariable int id) {
+        User retrieveUser = service.getUser(id);
+        if(Objects.nonNull(retrieveUser))
+            return retrieveUser;
+        else
+            throw new UserNotFoundException(String.format("id = %d", id));
     }
 
     @PostMapping(value = "/users")
@@ -38,7 +45,11 @@ public class UserController {
         //created method of ResponseEntity accepts URI as parameter
         // example - /users/4 => /users , user.getId()
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        if(Objects.isNull(savedUser)) {
+            throw new UserAlreadyCreatedException(user.toString());
+        } else {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+            return ResponseEntity.created(location).build();
+        }
     }
 }

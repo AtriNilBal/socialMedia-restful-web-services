@@ -1,5 +1,6 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 
+import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserAlreadyCreatedException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -30,16 +31,17 @@ public class UserDaoService {
         return users;
     }
 
-    public User retrieveUser(int id) {
+    public User getUser(int id) {
         Predicate<? super User> predicate = user -> user.getId().equals(id);
-        return users.stream().filter(predicate).findFirst().get();
+        return users.stream().filter(predicate).findFirst().orElse(null);
     }
 
     public User save(User user) {
         if(!checkUserExists(user)) {
-            users.add(new User(++usersCreated, user.getName(), user.getBirthDate()));
-        }
-        return user;
+            User newUser = new User(++usersCreated, user.getName(), user.getBirthDate());
+            users.add(newUser);
+            return newUser;
+        } else return null;
     }
 
     public void deleteUser(User user) {
