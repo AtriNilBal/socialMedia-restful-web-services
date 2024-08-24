@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SocialMediaRestfulWebServicesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RoadTransportRestfulWebServicesApplication.class, args);
+		SpringApplication.run(SocialMediaRestfulWebServicesApplication.class, args);
 	}
 
 }
