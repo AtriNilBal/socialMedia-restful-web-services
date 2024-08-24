@@ -1,5 +1,6 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 
+import jakarta.validation.Valid;
 import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserAlreadyCreatedException;
 import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
         //return uri of the new user so that client call the uri to check saved user details.
         //created method of ResponseEntity accepts URI as parameter
