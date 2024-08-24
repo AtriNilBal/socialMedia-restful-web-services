@@ -39,12 +39,15 @@ public class UserController {
             throw new UserNotFoundException(String.format("id = %d", id));
     }
 
+    /***
+     * return uri of the new user so that client call the uri to check saved user details
+     * created method of ResponseEntity accepts URI as parameter
+     * example - /users/4 => /users , user.getId()
+     * **/
+
     @PostMapping(value = "/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
-        //return uri of the new user so that client call the uri to check saved user details.
-        //created method of ResponseEntity accepts URI as parameter
-        // example - /users/4 => /users , user.getId()
 
         if(Objects.isNull(savedUser)) {
             throw new UserAlreadyCreatedException(user.toString());
