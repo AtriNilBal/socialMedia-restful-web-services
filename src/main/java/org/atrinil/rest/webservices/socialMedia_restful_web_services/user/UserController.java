@@ -25,12 +25,12 @@ public class UserController {
     // /createUser
     // /deleteUser
 
-    @GetMapping(value = "/users")
+    @GetMapping("/users")
     public List<User> getUsers() {
         return service.retrieveAllUsers();
     }
 
-    @GetMapping(value = "/users/{id}")
+    @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id) {
         User retrieveUser = service.getUser(id);
         if(Objects.nonNull(retrieveUser))
@@ -45,7 +45,7 @@ public class UserController {
      * example - /users/4 => /users , user.getId()
      * **/
 
-    @PostMapping(value = "/users")
+    @PostMapping("/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
 
@@ -57,7 +57,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(value = "/users/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable int id) {
         service.deleteById(id);
     }
