@@ -3,6 +3,8 @@ package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 import jakarta.validation.Valid;
 import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserAlreadyCreatedException;
 import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserNotFoundException;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class UserController {
@@ -30,11 +34,18 @@ public class UserController {
         return service.retrieveAllUsers();
     }
 
+    //add a link http://localhost:8080/users/{id}..replace id with the actual id
+    //Entity Model
+    //WebMvcLinkBuilder
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable int id) {
+    public EntityModel<User> retrieveUser(@PathVariable int id) {
         User retrieveUser = service.getUser(id);
-        if(Objects.nonNull(retrieveUser))
-            return retrieveUser;
+        if(Objects.nonNull(retrieveUser)) {
+            EntityModel<User> entityModel = EntityModel.of(retrieveUser);
+            WebMvcLinkBuilder link = WebMvcLinkBuilder.linkTo(methodOn(this.getClass()).getUsers());
+            entityModel.add(link.withRel("all_users"));
+            return entityModel;
+        }
         else
             throw new UserNotFoundException(String.format("id = %d", id));
     }
