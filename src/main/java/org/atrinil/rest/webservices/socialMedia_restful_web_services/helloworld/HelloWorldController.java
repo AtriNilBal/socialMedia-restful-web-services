@@ -20,21 +20,21 @@ public class HelloWorldController  {
 
     // url - /hello-world
     //return String "Hello world"
-    @GetMapping(path = "/hello-world")
+    @GetMapping("/hello-world")
     public String helloWorld() {
         return "Hello world";
     }
 
-    @GetMapping(path = "/hello-world-bean")
+    @GetMapping("/hello-world-bean")
     public HelloWorldBean helloWorldBean() {
         return new HelloWorldBean("Hello world");
     }
 
-    @GetMapping(value = "/hello-world/greet/{user}")
+    @GetMapping("/hello-world/greet/{user}")
     public HelloWorldBean greetUser(@PathVariable String user) {
         return new HelloWorldBean(String.format("Hello %s", user));
     }
-    @GetMapping(path = "/hello-world-internationalized")
+    @GetMapping("/hello-world-internationalized")
     public String HelloWorldInternationalized() {
         Locale locale = LocaleContextHolder.getLocale();
         return messageSource.getMessage("good.morning.message", null, "Default Message",
