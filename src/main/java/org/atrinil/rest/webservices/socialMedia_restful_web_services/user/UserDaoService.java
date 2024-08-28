@@ -1,6 +1,5 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.user;
 
-import org.atrinil.rest.webservices.socialMedia_restful_web_services.user.exception.UserAlreadyCreatedException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
