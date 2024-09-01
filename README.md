@@ -30,3 +30,11 @@ add key-value in Header Accept-Language - en or omit the header
 <li> REQUEST PARAM - <i>/person/reqparam?version=1</i> ; <i>/person/reqparam?version=2</i>
 <li> HEADER - add key-value X-API-VERSION=1 as a header ; or X-API-VERSION=2
 <li> MEDIA TYPE - add key-value Accept-application/vnd.company.app-v1+json as header or Accept-application/vnd.company.app-v2+json
+
+<b><ul> Dynamic Filtering:-</ul></b>
+-return filter out fields based on different uris out of the same bean-
+
+<li> URI - <i>http://localhost:8080/filtering-list</i>
+ - will return list of user names
+<li> URI - <i>http://localhost:8080/filtering</i>
+ - will return username and security question
