@@ -1,13 +1,13 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.filtering;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
-@JsonIgnoreProperties({"securityQuestion1", "securityAnswer1"})
+//@JsonIgnoreProperties({"securityQuestion1", "securityAnswer1"})
+@JsonFilter("SomeBeanFilter")
 public class UserLoginCredential {
     private String userName;
-    @JsonIgnore
+    //@JsonIgnore
     private String password;
     private String securityQuestion1;
     private String securityAnswer1;
