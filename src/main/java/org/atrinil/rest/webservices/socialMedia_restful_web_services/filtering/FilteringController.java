@@ -19,12 +19,11 @@ public class FilteringController {
     public MappingJacksonValue filtering() {
         //MappingJacksonValue to enable dynamic filtering to add specific serialization instruction to pass to jackson converter
         UserLoginCredential userLoginCredential = new UserLoginCredential("value1", "value2", "value3", "value4");
-
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userLoginCredential);
+        List<UserLoginCredential> userLoginCredentialList = new ArrayList<>();
+        userLoginCredentialList.add(userLoginCredential);
 
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("userName", "securityQuestion1");
-        FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
-        mappingJacksonValue.setFilters(filters);
+        MappingJacksonValue mappingJacksonValue = getMappingJacksonValue(userLoginCredentialList, filter);
 
         return mappingJacksonValue;
     }
@@ -32,13 +31,20 @@ public class FilteringController {
     @GetMapping("/filtering-list")
     public MappingJacksonValue filteringList() {
 
-        List<UserLoginCredential> list = Arrays.asList(new UserLoginCredential("value1", "value2", "value3", "value4")
+        List<UserLoginCredential> userLoginCredentialList = Arrays.asList(new UserLoginCredential("value1", "value2", "value3", "value4")
                 , new UserLoginCredential("value4", "value5", "value6", "value7"));
 
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("userName");
-        FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
 
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(list);
+        MappingJacksonValue mappingJacksonValue = getMappingJacksonValue(userLoginCredentialList, filter);
+        
+        return mappingJacksonValue;
+    }
+
+    private static MappingJacksonValue getMappingJacksonValue(List<UserLoginCredential> userLoginCredentialList, SimpleBeanPropertyFilter filter) {
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(userLoginCredentialList);
+
+        FilterProvider filters = new SimpleFilterProvider().addFilter("SomeBeanFilter", filter);
         mappingJacksonValue.setFilters(filters);
         
         return mappingJacksonValue;
