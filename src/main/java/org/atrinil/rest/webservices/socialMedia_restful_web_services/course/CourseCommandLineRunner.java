@@ -1,6 +1,7 @@
 package org.atrinil.rest.webservices.socialMedia_restful_web_services.course;
 
 import org.atrinil.rest.webservices.socialMedia_restful_web_services.course.jdbc.CourseJdbcRepository;
+import org.atrinil.rest.webservices.socialMedia_restful_web_services.course.jpa.CourseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -8,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseCommandLineRunner implements CommandLineRunner {
 
+    /*@Autowired
+    private CourseJdbcRepository repository;*/
+
     @Autowired
-    private CourseJdbcRepository repository;
+    private CourseJpaRepository repository;
 
     @Override
     public void run(String... args) throws Exception {
