@@ -1,12 +1,12 @@
-package org.atrinil.rest.webservices.socialMedia_restful_web_services.course.jdbc;
+package org.atrinil.rest.webservices.socialMedia_restful_web_services.course;
 
-import org.atrinil.rest.webservices.socialMedia_restful_web_services.course.Course;
+import org.atrinil.rest.webservices.socialMedia_restful_web_services.course.jdbc.CourseJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CourseJdbcCommandLineRunner implements CommandLineRunner {
+public class CourseCommandLineRunner implements CommandLineRunner {
 
     @Autowired
     private CourseJdbcRepository repository;
@@ -17,8 +17,8 @@ public class CourseJdbcCommandLineRunner implements CommandLineRunner {
         repository.insert(new Course(2, "Learning Javascript", "FreeCodeCamp"));
         repository.insert(new Course(3, "Learning Java", "Tim Buchalka"));
 
-        repository.deleteById(1);
-        System.out.println(repository.findById(2));
-        System.out.println(repository.findById(3));
+        repository.deleteById(1l);
+        System.out.println(repository.findById(2l));
+        System.out.println(repository.findById(3l));
     }
 }
