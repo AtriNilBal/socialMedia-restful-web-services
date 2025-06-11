@@ -38,3 +38,6 @@ add key-value in Header Accept-Language - en or omit the header
  - will return list of user names
 <li> URI - <i>http://localhost:8080/filtering</i>
  - will return username and security question
+
+<b><ul> Db interaction </ul></b>
+- access in-mem h2 db from url http://localhost:8080/h2-console
