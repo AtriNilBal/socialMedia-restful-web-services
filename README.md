@@ -30,3 +30,8 @@ add key-value in Header Accept-Language - en or omit the header
 <li> REQUEST PARAM - <i>/person/reqparam?version=1</i> ; <i>/person/reqparam?version=2</i>
 <li> HEADER - add key-value X-API-VERSION=1 as a header ; or X-API-VERSION=2
 <li> MEDIA TYPE - add key-value Accept-application/vnd.company.app-v1+json as header or Accept-application/vnd.company.app-v2+json
+
+Access h2 database in browser:
+http://localhost:8080/h2-console
+Refer application logs with ...H2 console available at '/h2-console'. Database available at <JDBC URL:>
+User Name: SA

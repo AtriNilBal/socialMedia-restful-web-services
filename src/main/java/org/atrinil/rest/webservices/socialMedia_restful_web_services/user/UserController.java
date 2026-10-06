@@ -63,7 +63,7 @@ public class UserController {
         if(Objects.isNull(savedUser)) {
             throw new UserAlreadyCreatedException(user.toString());
         } else {
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+            URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
             return ResponseEntity.created(location).build();
         }
     }
