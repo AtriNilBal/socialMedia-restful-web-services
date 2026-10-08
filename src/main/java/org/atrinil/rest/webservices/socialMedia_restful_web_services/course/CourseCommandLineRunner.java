@@ -13,23 +13,16 @@ public class CourseCommandLineRunner implements CommandLineRunner {
     /*@Autowired
     private CourseJdbcRepository repository;*/
 
-    /*@Autowired
-    private CourseJpaRepository repository;*/
-
     @Autowired
-    private CourseSpringDataJpaRepository repository;
+    private CourseJpaRepository repository;
+
+    /*@Autowired
+    private CourseSpringDataJpaRepository repository;*/
 
     @Override
     public void run(String... args) throws Exception {
         repository.save(new Course(1, "Learning Python", "Kiril Eremenko"));
         repository.save(new Course(2, "Learning Javascript", "FreeCodeCamp"));
         repository.save(new Course(3, "Learning Java", "Tim Buchalka"));
-
-        repository.deleteById(1l);
-        System.out.println(repository.findById(2l));
-        System.out.println(repository.findById(3l));
-
-        repository.findByAuthor("Tim Buchalka");
-        repository.findByName("Learning Javascript");
     }
 }

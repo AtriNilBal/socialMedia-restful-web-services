@@ -2,8 +2,10 @@ package org.atrinil.rest.webservices.socialMedia_restful_web_services.course;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="course")
 public class Course {
 
     @Id
